@@ -2,6 +2,11 @@ pipeline {
     agent { label 'slave-ec2-fleet' }
     tools {nodejs "nodejs"}
     stages {
+        stage('Versioning') {
+            steps {
+                sh 'printenv'
+            }
+        }        
         stage('Installing') {
             steps {
                 echo 'Installation in progress..'
