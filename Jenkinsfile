@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'jenkin-slave-fleet' }
+    agent { label 'slave-ec2-fleet' }
 
     stages {
         stage('Lint') {
