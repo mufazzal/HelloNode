@@ -7,7 +7,7 @@
     "lint": "eslint app --ext ts",
     "lint:fix": "eslint app --ext ts --fix",
     "test": "mocha -r ts-node/register '**/*.spec.ts' --reporter mochawesome",
-    "preBuild": "node scripts/prebuild",
+    "preBuild": "node scripts/preBuild",
     "build": "node scripts/build",
     "postBuild": "node scripts/postBuild",
     "start:dev": "node scripts/startDevServer",
