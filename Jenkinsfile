@@ -28,7 +28,8 @@ pipeline {
             steps {
                 echo 'Testing in progress..'
                 sh 'npm run test'
-                echo 'Testing Finished'            }
+                echo 'Testing Finished'
+            }
         }
         stage('Deploy') {
             steps {
