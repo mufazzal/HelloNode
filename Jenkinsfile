@@ -2,6 +2,13 @@ pipeline {
     agent { label 'slave-ec2-fleet' }
     tools {nodejs "nodejs"}
     stages {
+        stage('Installing') {
+            steps {
+                echo 'Installation in progress..'
+                sh 'npm install'
+                echo 'Installation Finished'
+            }
+        }          
         stage('Lint') {
             steps {
                 echo 'Linting in progress..'
