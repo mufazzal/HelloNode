@@ -49,10 +49,10 @@ pipeline {
                 echo 'Archiving in progress..'
                 pwd();
                 ls()
-
-                zip zipFile: 'muftest.zip', archive: false, dir: 'outputs/dist'
-                archiveArtifacts artifacts: 'muftest.zip', fingerprint: true
-
+                script  {
+                    zip zipFile: 'muftest.zip', archive: false, dir: 'outputs/dist'
+                    archiveArtifacts artifacts: 'muftest.zip', fingerprint: true
+                }
                 echo 'Archiving Finished'
             }
         }        
