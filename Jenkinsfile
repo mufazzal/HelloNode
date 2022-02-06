@@ -43,6 +43,35 @@ pipeline {
                 echo 'Testing Finished'
             }
         }
+
+        stage('Archiving') {
+            steps {
+                echo 'Archiving in progress..'
+                pwd();
+                ls()
+
+                zip zipFile: 'muftest.zip', archive: false, dir: 'outputs/dist'
+                archiveArtifacts artifacts: 'muftest.zip', fingerprint: true
+
+                echo 'Archiving Finished'
+            }
+        }        
+
+        // stage('Upload') {
+
+        //         pwd(); //Log current directory
+
+        //         withAWS(region:'us-east-1',credentials:'?????') {
+
+        //             def identity=awsIdentity();//Log AWS credentials
+
+        //             // Upload files from working directory 'dist' in your project workspace
+        //             s3Upload(bucket:"yourBucketName", workingDir:'dist', includePathPattern:'**/*');
+        //         }
+
+        // }
+
+
         stage('Deploy') {
             steps {
                 echo 'Deploying Hello....'
