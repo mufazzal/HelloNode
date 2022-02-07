@@ -81,7 +81,7 @@ pipeline {
                 withAWS(region:'us-east-1',credentials: "$awsCredId") {
                     echo "Uploading latest artifact: outputs/" + "$finalArtifactName"
                     s3Upload(bucket: "$s3Bucket",
-                                path: "$s3Prefix/latest.zip",
+                                path: "$s3Prefix"+"latest.zip",
                                 file:"outputs/" + "$finalArtifactName");
                 }                
                 
