@@ -3,6 +3,9 @@ pipeline {
     tools {nodejs "nodejs"}
     environment {
         finalArtifactName = "$GIT_BRANCH.$GIT_COMMIT.$BUILD_ID" + ".zip"
+        s3Prefix = "$GIT_BRANCH" + "/"
+        s3Bucket = "muf-modular-cfr-bucket"
+        awsCredId = "Mufazzal"
     }
     stages {
         stage('Versioning') {
@@ -50,7 +53,6 @@ pipeline {
         stage('Archiving') {
             steps {
                 echo 'Archiving in progress..'
-                pwd();
                 sh """
                 cd outputs
                 zip -r -qq ${finalArtifactName} dist/*
@@ -62,9 +64,11 @@ pipeline {
 
         stage('Upload') {
             steps {
-                withAWS(region:'us-east-1',credentials:'Mufazzal') {
+                withAWS(region:'us-east-1',credentials: "$awsCredId") {
                     echo "Uploading artifact: outputs/" + "$finalArtifactName"
-                    s3Upload(bucket:"muf-modular-cfr-bucket", file:"outputs/" + "$finalArtifactName");
+                    s3Upload(bucket: "$s3Bucket",
+                                path: "$s3Prefix"
+                                file:"outputs/" + "$finalArtifactName");
                 }
             }
 
