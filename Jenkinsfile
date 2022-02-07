@@ -62,16 +62,12 @@ pipeline {
         }        
 
         stage('Upload') {
-
-                pwd(); //Log current directory
-
+            steps {
                 withAWS(region:'us-east-1',credentials:'Mufazzal') {
-
                     def identity=awsIdentity();//Log AWS credentials
-
-                    // Upload files from working directory 'dist' in your project workspace
                     s3Upload(bucket:"muf-modular-cfr-bucket", file:"outputs/$GIT_BRANCH.$GIT_COMMIT.$BUILD_ID.zip");
                 }
+            }
 
         }
 
