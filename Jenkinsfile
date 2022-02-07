@@ -48,7 +48,10 @@ pipeline {
             steps {
                 echo 'Archiving in progress..'
                 pwd();
-                ls()
+                sh """
+                pwd
+                ls
+                """
                 script  {
                     zip zipFile: 'muftest.zip', archive: false, dir: 'outputs/dist'
                     archiveArtifacts artifacts: 'muftest.zip', fingerprint: true
