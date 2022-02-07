@@ -2,7 +2,7 @@ pipeline {
     agent { label 'slave-ec2-fleet' }
     tools {nodejs "nodejs"}
     environment {
-        finalArtifactName = "$GIT_BRANCH.$GIT_COMMIT.$BUILD_ID"
+        finalArtifactName = "$GIT_BRANCH.$GIT_COMMIT.$BUILD_ID" + ".zip"
     }
     stages {
         stage('Versioning') {
@@ -56,10 +56,6 @@ pipeline {
                 zip -r -qq ${finalArtifactName} dist/*
                 cd ..
                 """
-                // script  {
-                //     zip zipFile: 'muftest.zip', archive: false, dir: 'outputs/dist'
-                //     archiveArtifacts artifacts: 'muftest.zip', fingerprint: true
-                // }
                 echo 'Archiving Finished'
             }
         }        
@@ -67,7 +63,6 @@ pipeline {
         stage('Upload') {
             steps {
                 withAWS(region:'us-east-1',credentials:'Mufazzal') {
-                    //def identity=awsIdentity();//Log AWS credentials
                     echo "Uploading artifact: outputs/" + "$finalArtifactName"
                     s3Upload(bucket:"muf-modular-cfr-bucket", file:"outputs/" + "$finalArtifactName");
                 }
