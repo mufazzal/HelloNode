@@ -71,18 +71,18 @@ pipeline {
                                 file:"outputs/" + "$finalArtifactName");
                 }
 
-                sh """
-                    cd outputs
-                    mkdir tmp
-                    cp ${finalArtifactName} ${WORKSPACE}/outputs/tmp/latest.zip
-                    cd ..
-                """
+                // sh """
+                //     cd outputs
+                //     mkdir tmp
+                //     cp ${finalArtifactName} ${WORKSPACE}/outputs/tmp/latest.zip
+                //     cd ..
+                // """
 
                 withAWS(region:'us-east-1',credentials: "$awsCredId") {
                     echo "Uploading latest artifact: outputs/" + "$finalArtifactName"
                     s3Upload(bucket: "$s3Bucket",
-                                path: "latest",
-                                file:"outputs/tmp/latest.zip");
+                                path: "$s3Prefix/latest.zip",
+                                file:"outputs/" + "$finalArtifactName");
                 }                
                 
             }
