@@ -73,7 +73,7 @@ pipeline {
 
                 sh """
                     cd outputs
-                    mkdr tmp
+                    mkdir tmp
                     cp ${finalArtifactName} ${WORKSPACE}/tmp/latest.zip
                     cd ..
                 """
