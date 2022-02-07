@@ -67,7 +67,7 @@ pipeline {
                 withAWS(region:'us-east-1',credentials: "$awsCredId") {
                     echo "Uploading artifact: outputs/" + "$finalArtifactName"
                     s3Upload(bucket: "$s3Bucket",
-                                path: "$s3Prefix"
+                                path: "$s3Prefix",
                                 file:"outputs/" + "$finalArtifactName");
                 }
             }
