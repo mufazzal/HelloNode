@@ -1,9 +1,13 @@
 pipeline {
     agent { label 'slave-ec2-fleet' }
     tools {nodejs "nodejs"}
+    environment {
+        finalArtifactName = "$GIT_BRANCH.$GIT_COMMIT.$BUILD_ID"
+    }
     stages {
         stage('Versioning') {
             steps {
+                echo $finalArtifactName
                 sh 'printenv'
             }
         }        
@@ -66,7 +70,6 @@ pipeline {
                 withAWS(region:'us-east-1',credentials:'Mufazzal') {
                     //def identity=awsIdentity();//Log AWS credentials
                     echo "$GIT_BRANCH.$GIT_COMMIT.$BUILD_ID"
-                    echo "$GIT_BRANCH.$GIT_COMMIT.$BUILD_ID.zip"
                     //s3Upload(bucket:"muf-modular-cfr-bucket", file:"outputs/$GIT_BRANCH.$GIT_COMMIT.$BUILD_ID.zip");
                 }
             }
