@@ -70,12 +70,26 @@ pipeline {
                                 path: "$s3Prefix",
                                 file:"outputs/" + "$finalArtifactName");
                 }
+
+                sh """
+                    cd outputs
+                    cp ${finalArtifactName} /tmp/latest.zip
+                    cd ..
+                """
+
+                // withAWS(region:'us-east-1',credentials: "$awsCredId") {
+                //     echo "Uploading latest artifact: outputs/" + "$finalArtifactName"
+                //     s3Upload(bucket: "$s3Bucket",
+                //                 path: "$s3Prefix",
+                //                 file:"outputs/" + "$finalArtifactName");
+                // }                
+                
             }
 
             post {
                 success {
                     echo "Uploading location of artifact :-"
-                    echo "https://"+"$s3Bucket"+".s3.amazonaws.com"+"$s3Prefix"+"$finalArtifactName"
+                    echo "https://"+"$s3Bucket"+".s3.amazonaws.com/"+"$s3Prefix"+"$finalArtifactName"
                 }
             }
 
