@@ -49,30 +49,31 @@ pipeline {
                 echo 'Archiving in progress..'
                 pwd();
                 sh """
-                pwd
-                ls
+                cd outputs
+                zip -r -qq ${GIT_BRANCH}.${GIT_COMMIT}.${BUILD_ID}.zip dist/*
+                cd ..
                 """
-                script  {
-                    zip zipFile: 'muftest.zip', archive: false, dir: 'outputs/dist'
-                    archiveArtifacts artifacts: 'muftest.zip', fingerprint: true
-                }
+                // script  {
+                //     zip zipFile: 'muftest.zip', archive: false, dir: 'outputs/dist'
+                //     archiveArtifacts artifacts: 'muftest.zip', fingerprint: true
+                // }
                 echo 'Archiving Finished'
             }
         }        
 
-        // stage('Upload') {
+        stage('Upload') {
 
-        //         pwd(); //Log current directory
+                pwd(); //Log current directory
 
-        //         withAWS(region:'us-east-1',credentials:'?????') {
+                withAWS(region:'us-east-1',credentials:'Mufazzal') {
 
-        //             def identity=awsIdentity();//Log AWS credentials
+                    def identity=awsIdentity();//Log AWS credentials
 
-        //             // Upload files from working directory 'dist' in your project workspace
-        //             s3Upload(bucket:"yourBucketName", workingDir:'dist', includePathPattern:'**/*');
-        //         }
+                    // Upload files from working directory 'dist' in your project workspace
+                    s3Upload(bucket:"muf-modular-cfr-bucket", file:"outputs/$GIT_BRANCH.$GIT_COMMIT.$BUILD_ID.zip");
+                }
 
-        // }
+        }
 
 
         stage('Deploy') {
