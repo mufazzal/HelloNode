@@ -65,7 +65,9 @@ pipeline {
             steps {
                 withAWS(region:'us-east-1',credentials:'Mufazzal') {
                     //def identity=awsIdentity();//Log AWS credentials
-                    s3Upload(bucket:"muf-modular-cfr-bucket", file:"outputs/$GIT_BRANCH.$GIT_COMMIT.$BUILD_ID.zip");
+                    echo "$GIT_BRANCH.$GIT_COMMIT.$BUILD_ID"
+                    echo "$GIT_BRANCH.$GIT_COMMIT.$BUILD_ID.zip"
+                    //s3Upload(bucket:"muf-modular-cfr-bucket", file:"outputs/$GIT_BRANCH.$GIT_COMMIT.$BUILD_ID.zip");
                 }
             }
 
