@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Versioning') {
             steps {
-                echo $finalArtifactName
+                echo "$finalArtifactName"
                 sh 'printenv'
             }
         }        
