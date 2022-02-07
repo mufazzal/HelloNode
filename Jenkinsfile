@@ -72,6 +72,13 @@ pipeline {
                 }
             }
 
+            post {
+                success {
+                    echo "Uploading location of artifact :-"
+                    echo "https://"+"$s3Bucket"+".s3.amazonaws.com"+"$s3Prefix"+"$finalArtifactName"
+                }
+            }
+
         }
 
 
