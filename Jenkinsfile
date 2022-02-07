@@ -7,7 +7,6 @@ pipeline {
     stages {
         stage('Versioning') {
             steps {
-                echo "$finalArtifactName"
                 sh 'printenv'
             }
         }        
@@ -54,7 +53,7 @@ pipeline {
                 pwd();
                 sh """
                 cd outputs
-                zip -r -qq ${GIT_BRANCH}.${GIT_COMMIT}.${BUILD_ID}.zip dist/*
+                zip -r -qq ${finalArtifactName} dist/*
                 cd ..
                 """
                 // script  {
@@ -69,8 +68,8 @@ pipeline {
             steps {
                 withAWS(region:'us-east-1',credentials:'Mufazzal') {
                     //def identity=awsIdentity();//Log AWS credentials
-                    echo "$GIT_BRANCH.$GIT_COMMIT.$BUILD_ID"
-                    //s3Upload(bucket:"muf-modular-cfr-bucket", file:"outputs/$GIT_BRANCH.$GIT_COMMIT.$BUILD_ID.zip");
+                    echo "Uploading artifact: outputs/" + "$finalArtifactName"
+                    s3Upload(bucket:"muf-modular-cfr-bucket", file:"outputs/" + "$finalArtifactName");
                 }
             }
 
