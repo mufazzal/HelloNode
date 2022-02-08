@@ -15,7 +15,7 @@ class App {
         const router = express.Router()
 
         router.get('/', (req: any,res: any) => {
-            res.send(`Hello from Application1`)
+            res.send('Hello from Application1')
         })
 
         router.get('/health', (req: any,res: any) => {
