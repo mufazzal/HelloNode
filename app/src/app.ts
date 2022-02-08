@@ -2,15 +2,12 @@ import express from 'express'
 import {sum, muiltiply} from './calc/calculator'
 import {getSSMParams} from './other/sSMParams'
 import {printNodeDetails} from './other/nodeDetails'
-import {loadAppConfig} from './appConfigLoader'
 
 class App {
     public express: any;
-    public appConfig: any;
 
     constructor() {
         this.express = express()
-        this.appConfig = loadAppConfig()
         this.mountRoutes()
     }
 
@@ -18,7 +15,7 @@ class App {
         const router = express.Router()
 
         router.get('/', (req: any,res: any) => {
-            res.send(`Hello from Application1 : Version ${this.appConfig.Version} : Flavour ${this.appConfig.flavour}`)
+            res.send(`Hello from Application1`)
         })
 
         router.get('/health', (req: any,res: any) => {
