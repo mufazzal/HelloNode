@@ -11,8 +11,8 @@
     "build": "node scripts/build",
     "postBuild": "node scripts/postBuild",
     "start:dev": "node scripts/startDevServer",
-    "start:prod": "node scripts/startProdServer.js",
-    "stop:prod": "node scripts/stopProdServer.js"
+    "start": "node scripts/startServer.js",
+    "stop": "node scripts/stopServer.js"
   },
   "nodemonConfig": {
     "exec": "npm run start:dev",

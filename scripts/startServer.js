@@ -12,7 +12,7 @@ const pathToForever = path.join(root, "node_modules", "forever", 'bin', 'forever
 //const pathToServerjs = "./outputs/flavour1/dist/source/server.js"//"server.js";
 const pathToServerjs = "server.js";
 
-console.log('Starting Prod Server')
+console.log('Starting Server')
 
 let startCmdOut = null;
 console.log('isDocker', isDocker)
