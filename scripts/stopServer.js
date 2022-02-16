@@ -5,7 +5,7 @@ const path = require("path")
 const root = process.cwd();
 const pathToForever = path.join(root, "node_modules", "forever", 'bin', 'forever')
 
-console.log('Stoping Prod Server')
+console.log('Stoping Server')
 const stopCmdOut = spawnSync('node', [pathToForever, 'stopall']);
 if (stopCmdOut.error && stopCmdOut.error.toString('utf8')) {
     console.log('Error Stoping app1', stopCmdOut.error.toString('utf8'))

@@ -1,0 +1,44 @@
+version: 0.0
+os: linux
+files:
+  - source: source/
+    destination: /home/ec2-user/Application1/
+  - source: codeDeploy/
+    destination: /home/ec2-user/Application1/codeDeploy
+hooks:
+  BeforeBlockTraffic:
+    - location: codeDeploy/scripts/beforeBlockTraffic.sh
+      timeout: 300
+      runas: root
+  AfterBlockTraffic:    
+    - location: codeDeploy/scripts/afterBlockTraffic.sh
+      timeout: 300
+      runas: root  
+  ApplicationStop:
+    - location: codeDeploy/scripts/stop.sh
+      timeout: 300
+      runas: root      
+  BeforeInstall:
+    - location: codeDeploy/scripts/beforeInstall.sh
+      timeout: 300
+      runas: root
+  AfterInstall:
+    - location: codeDeploy/scripts/afterInstall.sh
+      timeout: 300
+      runas: root      
+  ApplicationStart:  
+    - location: codeDeploy/scripts/start.sh
+      timeout: 300
+      runas: root      
+  ValidateService:
+    - location: codeDeploy/scripts/validateService.sh
+      timeout: 300
+      runas: root      
+  BeforeAllowTraffic:
+    - location: codeDeploy/scripts/beforeAllowTraffic.sh
+      timeout: 300
+      runas: root
+  AfterAllowTraffic:
+    - location: codeDeploy/scripts/afterAllowTraffic.sh
+      timeout: 300
+      runas: root
