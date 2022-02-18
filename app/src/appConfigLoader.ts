@@ -1,15 +1,13 @@
 import fs from 'fs'
-import dotnev from 'dotenv'
-//import { getFalvourRuntimeResourcesPath } from "../../scripts/buildConfig"
 
-let flvConfig: any = null
+let appConfig: any = null
 
 export const loadAppConfig: any = () => {
-    if(flvConfig)
-        return flvConfig
+    if(appConfig)
+        return appConfig
 
-    const runtimeResPath = './appConfig/config.json'//getFalvourRuntimeResourcesPath(flv)
+    const runtimeResPath = './appConfig/appConfig.json'
 
-    flvConfig = JSON.parse(fs.readFileSync(`${runtimeResPath}`, 'utf8'))
-    return flvConfig
+    appConfig = JSON.parse(fs.readFileSync(`${runtimeResPath}`, 'utf8'))
+    return appConfig
 }   

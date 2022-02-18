@@ -18,8 +18,12 @@ class App {
         const router = express.Router()
 
         router.get('/', (req: any,res: any) => {
-            res.send(`Hello from Application1 : Version ${this.appConfig.Version} : Flavour ${this.appConfig.flavour}`)
+            res.send('Hello from Application - version: ' + this.appConfig.Version)
         })
+
+        router.get('/config', (req: any,res: any) => {
+            res.send(JSON.stringify(this.appConfig))
+        })        
 
         router.get('/health', (req: any,res: any) => {
             res.send('OK')
