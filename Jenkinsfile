@@ -6,7 +6,7 @@ pipeline {
         s3Prefix = "$GIT_BRANCH" + "/"
         s3Bucket = "muf-modular-cfr-bucket"
         awsCredId = "Mufazzal"
-        dockerRepo = ""
+        dockerRepo = "388412347424.dkr.ecr.us-east-1.amazonaws.com/hello-node-repo-ecr"
     }
     stages {
         stage('Versioning') {
