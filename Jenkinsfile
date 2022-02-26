@@ -95,6 +95,11 @@ pipeline {
                 script {
                     echo "Building docker image"
                     sh """
+                        sudo usermod -a -G docker ec2-user
+                        sudo docker:x:998:ec2-user
+                        sudo newgrp docker
+
+
                         docker build -f Docker/Dockerfile -t $dockerRepo:$GIT_BRANCH-latest -t $dockerRepo:$GIT_BRANCH-$BUILD_ID -t $dockerRepo:$GIT_BRANCH-$GIT_COMMIT .
                     """
                     echo "Building docker image finish"
