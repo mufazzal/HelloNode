@@ -95,7 +95,7 @@ pipeline {
                 script {
                     echo "Building docker image"
 
-                    def customImage = docker.build("my-image:${env.BUILD_ID}", "-f Docker/Dockerfile") 
+                    def customImage = docker.build("my-image:${env.BUILD_ID}", "./Docker") 
 
                     // sh """
                     //     sudo usermod -a -G docker ec2-user
