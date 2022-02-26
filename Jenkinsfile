@@ -96,7 +96,6 @@ pipeline {
                     echo "Building docker image"
                     sh """
                         sudo usermod -a -G docker ec2-user
-                        sudo docker:x:998:ec2-user
                         sudo newgrp docker
 
 
