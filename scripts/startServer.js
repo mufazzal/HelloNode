@@ -3,15 +3,27 @@ const { spawnSync  } = require('child_process');
 const path = require("path")
 
 const root = process.cwd();
+var args = process.argv.slice(2);
+
 const pathToForever = path.join(root, "node_modules", "forever", 'bin', 'forever')
-//const pathToServerjs = "./outputs/flavour1/dist/source/server.js"//"server.js";
 const pathToServerjs = "server.js";
 
-console.log('Starting Server')
+isDocker = false
+if(args.length > 0 && args[0] === 'docker') {
+    isDocker = true;
+}
+
 
 let startCmdOut = null;
+console.log('isDocker', isDocker)
 
-startCmdOut = spawnSync('node', [pathToForever, 'start', pathToServerjs]);
+if(isDocker) {
+    console.log('Starting Server Container')
+    startCmdOut = spawnSync('node', [pathToServerjs]);
+} else {
+    console.log('Starting Server')
+    startCmdOut = spawnSync('node', [pathToForever, 'start', pathToServerjs]);
+}
 
 if (startCmdOut.error && startCmdOut.error.toString('utf8')) {
     console.log(startCmdOut.error)
@@ -24,3 +36,6 @@ if (startCmdOut.stderr && startCmdOut.stderr.toString('utf8')) {
 if (startCmdOut.stdout && startCmdOut.stdout.toString('utf8')) {
     console.log('Started app1', startCmdOut.stdout.toString('utf8'))
 }
+
+// docker build -f Docker/Dockerfile -t mufazzal/hellonode:latest .
+// docker run -it -p 3010:3010 mufazzal/hellonode:latest

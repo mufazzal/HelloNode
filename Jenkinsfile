@@ -89,6 +89,12 @@ pipeline {
         }
 
 
+        stage('Dockerizing') {
+            steps {
+                
+            }
+        }
+
         stage('Deploy') {
             steps {
                 echo 'Deploying Hello....'
