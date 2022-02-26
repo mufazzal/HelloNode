@@ -91,7 +91,15 @@ pipeline {
 
         stage('Dockerizing') {
             steps {
-                
+                script {
+                    echo "Building docker image"
+                    def customImage = docker.build("my-image:${env.BUILD_ID}", 
+                        "-f Docker/Dockerfile -t mufazzal/hellonode:latest -t mufazzal/hellonode:v1.0.0")
+                    echo "Building docker image finish"
+                    echo "Curent images:-"
+                    sh ""
+
+                }
             }
         }
 
