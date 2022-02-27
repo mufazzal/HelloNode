@@ -95,19 +95,21 @@ pipeline {
                 script {
                     echo "Building docker image"
 
-                    def customImage = docker.build("my-image:${env.BUILD_ID}", "./Docker") 
+                    //def customImage = docker.build("my-image:${env.BUILD_ID}", "./Docker") 
 
-                    // sh """
-                    //     sudo usermod -a -G docker ec2-user
-                    //     sudo newgrp docker
-
-
-                    //     docker build -f Docker/Dockerfile -t $dockerRepo:$GIT_BRANCH-latest -t $dockerRepo:$GIT_BRANCH-$BUILD_ID -t $dockerRepo:$GIT_BRANCH-$GIT_COMMIT .
-                    // """
-                    // echo "Building docker image finish"
-                    // sh """
-                    //     docker images
-                    // """
+                    sh """
+                        docker build \
+                            -f Docker/Dockerfile \
+                            -t $dockerRepo:$GIT_BRANCH-latest \
+                            -t $dockerRepo:$GIT_BRANCH-$BUILD_ID \
+                            -t $dockerRepo:$GIT_BRANCH-$GIT_COMMIT \
+                            .
+                    """
+                    echo "Building docker image finish"
+                    echo "Images buils locally:-"
+                    sh """
+                        docker images
+                    """
 
                 }
             }
