@@ -6,6 +6,7 @@ pipeline {
         s3Prefix = "$GIT_BRANCH" + "/"
         s3Bucket = "muf-modular-cfr-bucket"
         awsCredId = "Mufazzal"
+        dockerRepo = "388412347424.dkr.ecr.us-east-1.amazonaws.com/hello-node-repo-ecr"
     }
     stages {
         stage('Versioning') {
@@ -93,11 +94,22 @@ pipeline {
             steps {
                 script {
                     echo "Building docker image"
-                    def customImage = docker.build("my-image:${env.BUILD_ID}", 
-                        "-f Docker/Dockerfile -t mufazzal/hellonode:latest -t mufazzal/hellonode:v1.0.0")
+
+                    //def customImage = docker.build("my-image:${env.BUILD_ID}", "./Docker") 
+
+                    sh """
+                        docker build \
+                            -f Docker/Dockerfile \
+                            -t $dockerRepo:$GIT_BRANCH-latest \
+                            -t $dockerRepo:$GIT_BRANCH-$BUILD_ID \
+                            -t $dockerRepo:$GIT_BRANCH-$GIT_COMMIT \
+                            .
+                    """
                     echo "Building docker image finish"
-                    echo "Curent images:-"
-                    sh ""
+                    echo "Images buils locally:-"
+                    sh """
+                        docker images
+                    """
 
                 }
             }
