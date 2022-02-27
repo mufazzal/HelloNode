@@ -113,7 +113,7 @@ pipeline {
 
                 }
             }
-        }
+        } 
 
         stage('Deploy') {
             steps {
