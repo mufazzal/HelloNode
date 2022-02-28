@@ -45,6 +45,10 @@ class App {
             res.send(printNodeDetails())
         })
 
+        router.get('/dummy', (req: any,res: any) => {
+            res.send('dummy')
+        })
+
         this.express.use('/', router)
     }
 }
