@@ -108,7 +108,7 @@ pipeline {
                             .
                     """
                     echo "Building docker image finish"
-                    echo "Images build locally:-"
+                    echo "Images build locally :-"
                     sh """
                         docker images
                     """
