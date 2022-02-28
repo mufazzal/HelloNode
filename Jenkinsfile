@@ -7,6 +7,8 @@ pipeline {
         s3Bucket = "muf-modular-cfr-bucket"
         awsCredId = "Mufazzal"
         dockerRepo = "388412347424.dkr.ecr.us-east-1.amazonaws.com/hello-node-repo-ecr"
+        ecrUrl = "388412347424.dkr.ecr.us-east-1.amazonaws.com"
+        aws_region = "us-east-1"
     }
     stages {
         stage('Versioning') {
@@ -109,7 +111,16 @@ pipeline {
                     echo "Images build locally:-"
                     sh """
                         docker images
-                        aws --version
+                    """
+                    echo "Pushind image to AWS ECR"
+                    sh """
+                        aws ecr get-login-password \
+                            --region $aws_region | docker login \
+                                --username AWS \
+                                --password-stdin \
+                                $ecrUrl
+                        docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$flavour-$ENV
+
                     """
 
                 }
