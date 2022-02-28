@@ -119,7 +119,7 @@ pipeline {
                                 --username AWS \
                                 --password-stdin \
                                 $ecrUrl
-                        docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$flavour-$ENV
+                        docker push $dockerRepo:$GIT_BRANCH-latest
 
                     """
 
