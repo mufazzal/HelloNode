@@ -102,7 +102,7 @@ pipeline {
                         docker image tag helloNodeDockerImage 388412347424.dkr.ecr.us-east-1.amazonaws.com/hello-node-repo-ecr:$GIT_BRANCH-latest
                         docker image tag helloNodeDockerImage 388412347424.dkr.ecr.us-east-1.amazonaws.com/hello-node-repo-ecr:$GIT_BRANCH-$BUILD_ID
 
-                        docker image push --all-tags helloNodeDockerImage
+                        docker image push --all-tags 388412347424.dkr.ecr.us-east-1.amazonaws.com/hello-node-repo-ecr
                     """
 
                     //def customImage = docker.build("my-image:${env.BUILD_ID}", "./Docker") 
