@@ -106,9 +106,10 @@ pipeline {
                             .
                     """
                     echo "Building docker image finish"
-                    echo "Images buils locally:-"
+                    echo "Images build locally:-"
                     sh """
                         docker images
+                        aws --version
                     """
 
                 }
