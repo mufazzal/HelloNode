@@ -46,7 +46,7 @@ class App {
         })
 
         router.get('/dummy', (req: any,res: any) => {
-            res.send('dummy2')
+            res.send('dummy3')
         })
 
         this.express.use('/', router)
