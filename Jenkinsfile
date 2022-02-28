@@ -108,7 +108,7 @@ pipeline {
                             .
                     """
                     echo "Building docker image finish"
-                    echo "Images build locally :-"
+                    echo "Images build locally c :-"
                     sh """
                         docker images
                     """
@@ -120,8 +120,6 @@ pipeline {
                                 --password-stdin \
                                 $ecrUrl
                         docker push $dockerRepo:$GIT_BRANCH-latest
-                        docker push $dockerRepo:$GIT_BRANCH-$BUILD_ID
-                        docker push $dockerRepo:$GIT_BRANCH-$GIT_COMMIT
 
                         docker rmi $dockerRepo:$GIT_BRANCH-latest
                         docker rmi $dockerRepo:$GIT_BRANCH-$BUILD_ID
