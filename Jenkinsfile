@@ -98,10 +98,17 @@ pipeline {
                     echo "Building docker image"
                     
                     sh """
+                        aws ecr get-login-password \
+                            --region $aws_region | docker login \
+                                --username AWS \
+                                --password-stdin \
+                                $ecrUrl
+
                         docker build -f Docker/Dockerfile -t hello-node-repo-ecr .
                         docker tag hello-node-repo-ecr:latest 388412347424.dkr.ecr.us-east-1.amazonaws.com/hello-node-repo-ecr:$GIT_BRANCH-latest
                         docker tag hello-node-repo-ecr:latest 388412347424.dkr.ecr.us-east-1.amazonaws.com/hello-node-repo-ecr:$GIT_BRANCH-$BUILD_ID
-                        docker push 388412347424.dkr.ecr.us-east-1.amazonaws.com/hello-node-repo-ecr:$GIT_BRANCH-$BUILD_ID
+
+                        docker push --all-tags 388412347424.dkr.ecr.us-east-1.amazonaws.com/hello-node-repo-ecr:$GIT_BRANCH-latest
                     """
 
                     //def customImage = docker.build("my-image:${env.BUILD_ID}", "./Docker") 
