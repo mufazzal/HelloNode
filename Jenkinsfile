@@ -88,7 +88,6 @@ pipeline {
                     echo "https://"+"$s3Bucket"+".s3.amazonaws.com/"+"$s3Prefix"+"$finalArtifactName"
                 }
             }
-
         }
 
 
