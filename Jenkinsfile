@@ -6,6 +6,9 @@ pipeline {
         s3Prefix = "$GIT_BRANCH" + "/"
         s3Bucket = "muf-modular-cfr-bucket"
         awsCredId = "Mufazzal"
+        dockerRepo = "388412347424.dkr.ecr.us-east-1.amazonaws.com/hello-node-repo-ecr"
+        ecrUrl = "388412347424.dkr.ecr.us-east-1.amazonaws.com"
+        aws_region = "us-east-1"
     }
     stages {
         stage('Versioning') {
@@ -85,9 +88,48 @@ pipeline {
                     echo "https://"+"$s3Bucket"+".s3.amazonaws.com/"+"$s3Prefix"+"$finalArtifactName"
                 }
             }
-
         }
 
+
+        stage('Dockerizing') {
+            steps {
+                script {
+                    echo "Building docker image"
+                    
+                    //def customImage = docker.build("my-image:${env.BUILD_ID}", "./Docker") 
+
+                    sh """
+                        docker build \
+                            -f Docker/Dockerfile \
+                            -t $dockerRepo:$GIT_BRANCH-latest \
+                            -t $dockerRepo:$GIT_BRANCH-$BUILD_ID \
+                            -t $dockerRepo:$GIT_BRANCH-$GIT_COMMIT \
+                            .
+                    """
+                    echo "Building docker image finish"
+                    echo "Images build locally c :-"
+                    sh """
+                        docker images
+                    """
+                    echo "Pushind image to AWS ECR"
+                    sh """
+                        aws ecr get-login-password \
+                            --region $aws_region | docker login \
+                                --username AWS \
+                                --password-stdin \
+                                $ecrUrl
+                        docker push $dockerRepo:$GIT_BRANCH-latest
+                        docker push $dockerRepo:$GIT_BRANCH-$BUILD_ID
+                        docker push $dockerRepo:$GIT_BRANCH-$GIT_COMMIT
+
+                        docker rmi $dockerRepo:$GIT_BRANCH-latest
+                        docker rmi $dockerRepo:$GIT_BRANCH-$BUILD_ID
+                        docker rmi $dockerRepo:$GIT_BRANCH-$GIT_COMMIT
+                    """
+
+                }
+            }
+        } 
 
         stage('Deploy') {
             steps {
