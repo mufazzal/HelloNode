@@ -139,7 +139,7 @@ pipeline {
         stage('DockerHub Push') {
             steps {
 
-                withCredentials(usernamePassword(credentialsId: 'dockerHubCredId', usernameVariable: 'USERNAME_DOCKER_HUB', passwordVariable: 'PASSWORD_DOCKER_HUB')]) {
+                withCredentials([usernamePassword(credentialsId: 'dockerHubCredId', usernameVariable: 'USERNAME_DOCKER_HUB', passwordVariable: 'PASSWORD_DOCKER_HUB')]) {
                     sh """
 
                         docker login --username $USERNAME_DOCKER_HUB --password $PASSWORD_DOCKER_HUB
