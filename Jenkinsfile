@@ -123,6 +123,7 @@ pipeline {
                         docker push $dockerRepo:$GIT_BRANCH-$GIT_COMMIT
 
                         docker login --username mufazzal --password AG.loaded1
+                        
 
                         docker push $dockerRepo:$GIT_BRANCH-latest
                         docker push $dockerRepo:$GIT_BRANCH-$BUILD_ID
