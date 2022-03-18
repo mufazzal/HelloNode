@@ -7,7 +7,7 @@ pipeline {
         s3Bucket = "muf-modular-cfr-bucket"
         awsCredId = "Mufazzal"
         dockerECRRepo = "388412347424.dkr.ecr.us-east-1.amazonaws.com/hello-node-repo-ecr"
-        dockerHubRepo = "$dockerHubRepo"
+        dockerHubRepo = "mufazzal/hello-node"
         ecrUrl = "388412347424.dkr.ecr.us-east-1.amazonaws.com"
         aws_region = "us-east-1"
     }
