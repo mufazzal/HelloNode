@@ -6,7 +6,9 @@ pipeline {
         s3Prefix = "$GIT_BRANCH" + "/"
         s3Bucket = "muf-modular-cfr-bucket"
         awsCredId = "Mufazzal"
-        dockerRepo = "388412347424.dkr.ecr.us-east-1.amazonaws.com/hello-node-repo-ecr"
+        dockerHubCredId = "dockerHubPassword"
+        dockerECRRepo = "388412347424.dkr.ecr.us-east-1.amazonaws.com/hello-node-repo-ecr"
+        dockerHubRepo = "mufazzal/hello-node"
         ecrUrl = "388412347424.dkr.ecr.us-east-1.amazonaws.com"
         aws_region = "us-east-1"
     }
@@ -101,40 +103,70 @@ pipeline {
                     sh """
                         docker build \
                             -f Docker/Dockerfile \
-                            -t $dockerRepo:$GIT_BRANCH-latest \
-                            -t $dockerRepo:$GIT_BRANCH-$BUILD_ID \
-                            -t $dockerRepo:$GIT_BRANCH-$GIT_COMMIT \
+                            -t $dockerECRRepo:$GIT_BRANCH-latest \
+                            -t $dockerECRRepo:$GIT_BRANCH-$BUILD_ID \
+                            -t $dockerECRRepo:$GIT_BRANCH-$GIT_COMMIT \
+                            -t $dockerHubRepo:$GIT_BRANCH-latest \
+                            -t $dockerHubRepo:$GIT_BRANCH-$BUILD_ID \
+                            -t $dockerHubRepo:$GIT_BRANCH-$GIT_COMMIT \
                             .
                     """
                     echo "Building docker image finish"
-                    echo "Images build locally c :-"
+                    echo "Images build locally :-"
                     sh """
                         docker images
                     """
-                    echo "Pushind image to AWS ECR"
-                    sh """
-                        aws ecr get-login-password \
-                            --region $aws_region | docker login \
-                                --username AWS \
-                                --password-stdin \
-                                $ecrUrl
-                        docker push $dockerRepo:$GIT_BRANCH-latest
-                        docker push $dockerRepo:$GIT_BRANCH-$BUILD_ID
-                        docker push $dockerRepo:$GIT_BRANCH-$GIT_COMMIT
-
-                        docker rmi $dockerRepo:$GIT_BRANCH-latest
-                        docker rmi $dockerRepo:$GIT_BRANCH-$BUILD_ID
-                        docker rmi $dockerRepo:$GIT_BRANCH-$GIT_COMMIT
-                    """
-
                 }
             }
         } 
 
-        stage('Deploy') {
+        stage('ECR Push') {
             steps {
-                echo 'Deploying Hello....'
+                sh """
+                    aws ecr get-login-password \
+                        --region $aws_region | docker login \
+                            --username AWS \
+                            --password-stdin \
+                            $ecrUrl
+                    docker push $dockerECRRepo:$GIT_BRANCH-latest
+                    docker push $dockerECRRepo:$GIT_BRANCH-$BUILD_ID
+                    docker push $dockerECRRepo:$GIT_BRANCH-$GIT_COMMIT
+
+                """
             }
         }
+
+        stage('DockerHub Push') {
+            steps {
+
+                withCredentials([usernamePassword(credentialsId: "$dockerHubCredId", usernameVariable: 'USERNAME_DOCKER_HUB', passwordVariable: 'PASSWORD_DOCKER_HUB')]) {
+                    sh """
+
+                        docker login --username $USERNAME_DOCKER_HUB --password $PASSWORD_DOCKER_HUB
+
+                        docker push $dockerHubRepo:$GIT_BRANCH-latest
+                        docker push $dockerHubRepo:$GIT_BRANCH-$BUILD_ID
+                        docker push $dockerHubRepo:$GIT_BRANCH-$GIT_COMMIT
+                    
+                    """
+                
+                }
+            }
+        }        
+
+        stage('Clean up') {
+            steps {
+                sh """
+                    docker rmi $dockerECRRepo:$GIT_BRANCH-latest
+                    docker rmi $dockerECRRepo:$GIT_BRANCH-$BUILD_ID
+                    docker rmi $dockerECRRepo:$GIT_BRANCH-$GIT_COMMIT
+                    docker rmi $dockerHubRepo:$GIT_BRANCH-latest
+                    docker rmi $dockerHubRepo:$GIT_BRANCH-$BUILD_ID
+                    docker rmi $dockerHubRepo:$GIT_BRANCH-$GIT_COMMIT
+                """
+            }
+        }        
+
+
     }
 }
