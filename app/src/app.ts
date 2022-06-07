@@ -2,6 +2,7 @@ import express from 'express'
 import {sum, muiltiply} from './calc/calculator'
 import {getSSMParams} from './other/sSMParams'
 import {printNodeDetails} from './other/nodeDetails'
+import {checkAccess} from './other/checkAccess'
 import {loadAppConfig} from './appConfigLoader'
 
 class App {
@@ -45,8 +46,13 @@ class App {
             res.send(printNodeDetails())
         })
 
+        router.get('/checkAccess/:protocol/:url', async function (req: any,res: any) {
+            const fres = await checkAccess(req.params.protocol, req.params.url)
+            res.send(fres)
+        })        
+
         router.get('/dummy', (req: any,res: any) => {
-            res.send('dummy4')
+            res.send('dummy6')
         })
 
         this.express.use('/', router)
