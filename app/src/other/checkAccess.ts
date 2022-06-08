@@ -1,4 +1,4 @@
-const axios = require('axios').default;
+import axios from 'axios'
 
 const checkAccess = async function(protocol, url) {
   try {
@@ -6,7 +6,7 @@ console.log(protocol, url)
       const res = await axios.get(`${protocol}://${url}`)      
       .then(rawRes => {
         console.log('res', rawRes)
-        let result = rawRes.data
+        const result = rawRes.data
         return result
       })
       .catch(e => {
