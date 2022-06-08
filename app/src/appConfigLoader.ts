@@ -11,6 +11,9 @@ export const loadAppConfig: any = () => {
     const runtimeResPath = './appConfig/runConfig.json'
     appConfig.runConfigs = JSON.parse(fs.readFileSync(`${runtimeResPath}`, 'utf8'))
 
+    const runtimeRawResPath = './appConfig/runConfigRaw'
+    appConfig.runConfigRaw = fs.readFileSync(`${runtimeRawResPath}`, 'utf8')
+
     const buildDetailPath = './appConfig/buildDetail.json'
     appConfig.buildDetails = JSON.parse(fs.readFileSync(`${buildDetailPath}`, 'utf8'))
 
@@ -18,4 +21,5 @@ export const loadAppConfig: any = () => {
     appConfig.nodeDetailPath = JSON.parse(fs.readFileSync(`${nodeDetailPath}`, 'utf8'))
 
     return appConfig
-}   
+}  
+ 
