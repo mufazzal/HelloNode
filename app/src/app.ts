@@ -19,7 +19,7 @@ class App {
         const router = express.Router()
 
         router.get('/', (req: any,res: any) => {
-            res.send('Hello from Application - version: ' + this.appConfig.Version)
+            res.send('Hello from Application - version: ' + this.appConfig.buildDetails.Version)
         })
 
         router.get('/config', (req: any,res: any) => {
@@ -42,9 +42,9 @@ class App {
             res.send(getSSMParams())
         })
 
-        router.get('/nodeDetails', function (req: any,res: any) {
-            res.send(printNodeDetails())
-        })
+        // router.get('/nodeDetails', function (req: any,res: any) {
+        //     res.send(printNodeDetails())
+        // })
 
         router.get('/checkAccess/:protocol/:url', async function (req: any,res: any) {
             const fres = await checkAccess(req.params.protocol, req.params.url)
