@@ -2,8 +2,8 @@ import fs from 'fs'
 
 let appConfig: any = null
 
-export const loadAppConfig: any = () => {
-    if(appConfig)
+export const loadAppConfig: any = (isHardLoad: boolean) => {
+    if(!isHardLoad && appConfig)
         return appConfig
     else 
         appConfig = {}

@@ -11,7 +11,7 @@ class App {
 
     constructor() {
         this.express = express()
-        this.appConfig = loadAppConfig()
+        this.appConfig = loadAppConfig(true)
         this.mountRoutes()
     }
 
@@ -23,7 +23,7 @@ class App {
         })
 
         router.get('/config', (req: any,res: any) => {
-            this.appConfig = loadAppConfig()
+            this.appConfig = loadAppConfig(true)
             res.send(JSON.stringify(this.appConfig))
         })        
 
