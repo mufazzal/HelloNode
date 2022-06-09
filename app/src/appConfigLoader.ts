@@ -9,17 +9,31 @@ export const loadAppConfig: any = () => {
         appConfig = {}
 
     const buildDetailPath = './appConfig/buildDetail.json'
-    appConfig.buildDetails = JSON.parse(fs.readFileSync(`${buildDetailPath}`, 'utf8'))
-
     const nodeDetailPath = './appConfig/nodeDetails.json'
-    appConfig.nodeDetailPath = JSON.parse(fs.readFileSync(`${nodeDetailPath}`, 'utf8'))
-    
     const defRuntimeResPath = './runtimeConfigs/runConfigDefault.properties'
-    appConfig.runConfigsDef = fs.readFileSync(`${defRuntimeResPath}`, 'utf8')
-
     const runtimeResPath = './runtimeConfigs/runConfigDefault.properties'
-    appConfig.runConfig = fs.readFileSync(`${runtimeResPath}`, 'utf8')
 
+    try {    
+        appConfig.buildDetails = JSON.parse(fs.readFileSync(`${buildDetailPath}`, 'utf8'))
+    } catch(e) {
+        appConfig.buildDetails = `cannot load ${buildDetailPath}` 
+    }
+
+    try {  
+        appConfig.nodeDetails = JSON.parse(fs.readFileSync(`${nodeDetailPath}`, 'utf8'))
+    } catch(e) {
+        appConfig.nodeDetails = `cannot load ${nodeDetailPath}` 
+    }    
+    try {  
+        appConfig.runConfigsDef = fs.readFileSync(`${defRuntimeResPath}`, 'utf8')
+    } catch(e) {
+        appConfig.runConfigsDef = `cannot load ${defRuntimeResPath}` 
+    }
+    try {  
+        appConfig.runConfig = fs.readFileSync(`${runtimeResPath}`, 'utf8')
+    } catch(e) {
+        appConfig.runConfig = `cannot load ${runtimeResPath}` 
+    }
     appConfig.envs = {
             appEnv1: process.env.appEnv1, 
             appEnv2: process.env.appEnv2, 
