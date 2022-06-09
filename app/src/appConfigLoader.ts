@@ -20,6 +20,10 @@ export const loadAppConfig: any = () => {
     const nodeDetailPath = './appConfig/nodeDetails.json'
     appConfig.nodeDetailPath = JSON.parse(fs.readFileSync(`${nodeDetailPath}`, 'utf8'))
 
+    appConfig.envs = {
+            appEnv1: process.env.appEnv1, 
+            appEnv2: process.env.appEnv2, 
+            appEnv3: process.env.appEnv3}
     return appConfig
 }  
  
