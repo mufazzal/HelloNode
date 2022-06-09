@@ -14,10 +14,10 @@ export const loadAppConfig: any = () => {
     const nodeDetailPath = './appConfig/nodeDetails.json'
     appConfig.nodeDetailPath = JSON.parse(fs.readFileSync(`${nodeDetailPath}`, 'utf8'))
     
-    const defRuntimeResPath = './appConfig/runtimeConfigs/runConfigDefault.properties'
+    const defRuntimeResPath = './runtimeConfigs/runConfigDefault.properties'
     appConfig.runConfigsDef = fs.readFileSync(`${defRuntimeResPath}`, 'utf8')
 
-    const runtimeResPath = './appConfig/runtimeConfigs/runConfigDefault.properties'
+    const runtimeResPath = './runtimeConfigs/runConfigDefault.properties'
     appConfig.runConfig = fs.readFileSync(`${runtimeResPath}`, 'utf8')
 
     appConfig.envs = {
