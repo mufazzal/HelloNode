@@ -23,6 +23,7 @@ class App {
         })
 
         router.get('/config', (req: any,res: any) => {
+            this.appConfig = loadAppConfig()
             res.send(JSON.stringify(this.appConfig))
         })        
 
