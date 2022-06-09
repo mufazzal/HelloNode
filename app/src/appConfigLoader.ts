@@ -10,8 +10,7 @@ export const loadAppConfig: any = (isHardLoad: boolean) => {
 
     const buildDetailPath = './appConfig/buildDetail.json'
     const nodeDetailPath = './appConfig/nodeDetails.json'
-    const defRuntimeResPath = './runtimeConfigs/runConfigDefault.properties'
-    const runtimeResPath = './runtimeConfigs/runConfig.properties'
+    const runtimeResPath = './runtimeConfigs/runConfig.json'
 
     try {    
         appConfig.buildDetails = JSON.parse(fs.readFileSync(`${buildDetailPath}`, 'utf8'))
@@ -25,12 +24,7 @@ export const loadAppConfig: any = (isHardLoad: boolean) => {
         appConfig.nodeDetails = `cannot load ${nodeDetailPath}` 
     }    
     try {  
-        appConfig.runConfigsDef = fs.readFileSync(`${defRuntimeResPath}`, 'utf8')
-    } catch(e) {
-        appConfig.runConfigsDef = `cannot load ${defRuntimeResPath}` 
-    }
-    try {  
-        appConfig.runConfig = fs.readFileSync(`${runtimeResPath}`, 'utf8')
+        appConfig.runConfig = JSON.parse(fs.readFileSync(`${runtimeResPath}`, 'utf8'))
     } catch(e) {
         appConfig.runConfig = `cannot load ${runtimeResPath}` 
     }
