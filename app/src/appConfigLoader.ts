@@ -11,7 +11,7 @@ export const loadAppConfig: any = (isHardLoad: boolean) => {
     const buildDetailPath = './appConfig/buildDetail.json'
     const nodeDetailPath = './appConfig/nodeDetails.json'
     const defRuntimeResPath = './runtimeConfigs/runConfigDefault.properties'
-    const runtimeResPath = './runtimeConfigs/runConfigDefault.properties'
+    const runtimeResPath = './runtimeConfigs/runConfig.properties'
 
     try {    
         appConfig.buildDetails = JSON.parse(fs.readFileSync(`${buildDetailPath}`, 'utf8'))
