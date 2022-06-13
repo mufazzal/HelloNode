@@ -3,6 +3,7 @@ import {sum, muiltiply} from './calc/calculator'
 import {getSSMParams} from './other/sSMParams'
 import {printNodeDetails} from './other/nodeDetails'
 import {checkAccess} from './other/checkAccess'
+import {fakeLoad} from './other/fakeLoad'
 import {loadAppConfig} from './appConfigLoader'
 
 class App {
@@ -50,7 +51,13 @@ class App {
         router.get('/checkAccess/:protocol/:url', async function (req: any,res: any) {
             const fres = await checkAccess(req.params.protocol, req.params.url)
             res.send(fres)
-        })        
+        })   
+
+        router.get('/loadTest/:level', function (req: any,res: any) {
+            const out = fakeLoad(req.params.level)
+            console.log(out)
+            res.send(out)
+        })             
 
         router.get('/dummy', (req: any,res: any) => {
             res.send('dummy6')
