@@ -31,7 +31,8 @@ export const loadAppConfig: any = (isHardLoad: boolean) => {
     appConfig.envs = {
             appEnv1: process.env.appEnv1, 
             appEnv2: process.env.appEnv2, 
-            appEnv3: process.env.appEnv3}
+            appEnv3: process.env.appEnv3,
+            logDir: process.env.logDir}
     return appConfig
 }  
  
