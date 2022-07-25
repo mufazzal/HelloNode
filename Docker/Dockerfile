@@ -15,5 +15,5 @@ EXPOSE 3010
 CMD ["npm", "run", "start", "docker"]
 
 # docker build -f Docker/Dockerfile -t mufazzal/hellonode:local .
-# docker run -it -p 80:3010 -e logDir=/var/log/log.json mufazzal/hellonode:local
+# docker run -it -p 80:3010 -e logDir=/var/log/hnlog/log.json mufazzal/hellonode:local
 # docker push mufazzal/hellonode:develop-21
