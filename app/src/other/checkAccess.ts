@@ -6,23 +6,21 @@ import logger from '../../logger'
 
 const checkAccess = async function(protocol, url) {
   try {
-logger.info(protocol, url)    
+console.log(protocol, url)    
       const res = await axios.get(`${protocol}://${url}`)      
       .then(rawRes => {
-logger.info('res', rawRes)
+console.log('res', rawRes)
         const result = rawRes.data
         return result
       })
       .catch(e => {
-logger.info('err', e)
+console.log('err', e)
         return e
       })
-logger.info(res)      
       return res
   } catch(e) {
     return e
   }
 }
-  
 
 export {checkAccess}
