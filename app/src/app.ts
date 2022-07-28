@@ -5,6 +5,7 @@ import {printNodeDetails} from './other/nodeDetails'
 import {checkAccess} from './other/checkAccess'
 import {fakeLoad} from './other/fakeLoad'
 import {loadAppConfig} from './appConfigLoader'
+import {callHnMsFlow} from './other/hn_ms'
 import logger from '../logger'
 
 class App {
@@ -75,6 +76,12 @@ class App {
 
         router.get('/error', (req: any,res: any) => {
             res.send('error')
+            logger.error('handled request', { req, res })
+        })
+        
+        router.get('/flow/:flowId', (req: any,res: any) => {
+            const out = callHnMsFlow(req.params.flowId)
+            res.send(out)
             logger.error('handled request', { req, res })
         })        
 

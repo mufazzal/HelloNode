@@ -11,7 +11,8 @@
     "build": "node scripts/build",
     "postBuild": "node scripts/postBuild",
     "start:devLive": "node scripts/startDevServer",
-    "start:dev": "cross-env logDir='logs/log.json' appEnv1=valEnv1 appEnv2=valEnv2 appEnv3=valEnv3 ts-node app/server.ts",
+    "start:dev_bk": "cross-env logDir='logs/log.json' appEnv1=valEnv1 appEnv2=valEnv2 appEnv3=valEnv3 ts-node app/server.ts",
+    "start:dev": "cross-env-file -p ./.local-env.json ts-node app/server.ts",
     "fullBuild": "npm run preBuild && npm run build && npm run postBuild",
     "start": "node scripts/startServer.js",
     "stop": "node scripts/stopServer.js"
@@ -54,6 +55,7 @@
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
     "chai": "^4.3.4",
+    "cross-env-file": "^1.0.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "11.2.0",
     "eslint-plugin-import": "2.3.0",
