@@ -1,5 +1,4 @@
 import fetch from 'node-fetch'
-import logger from '../../logger'
 
 const hn_ms_1 = process.env.hn_ms_1
 const hn_ms_2 = process.env.hn_ms_2
@@ -24,21 +23,21 @@ async function callHnMsFlow1() {
         return {success: false, e}
     })
     
-    // out.hn_ms2 = await fetch(hn_ms_2)
-    // .then(res=> res.json())
-    // .then(res => {
-    //     return {success: true, res}
-    // }).catch(e => {
-    //     return {success: false, e}
-    // })  
+    out.hn_ms2 = await fetch(hn_ms_2)
+    .then(res=> res.json())
+    .then(res => {
+        return {success: true, res}
+    }).catch(e => {
+        return {success: false, e}
+    })  
     
-    // out.hn_ms3 = await fetch(hn_ms_3)
-    // .then(res=> res.json())
-    // .then(res => {
-    //     return {success: true, res}
-    // }).catch(e => {
-    //     return {success: false, e}
-    // })      
+    out.hn_ms3 = await fetch(hn_ms_3)
+    .then(res=> res.json())
+    .then(res => {
+        return {success: true, res}
+    }).catch(e => {
+        return {success: false, e}
+    })      
     
     return out
 }
