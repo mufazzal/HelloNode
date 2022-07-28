@@ -80,9 +80,10 @@ class App {
         })
         
         router.get('/flow/:flowId', async (req: any,res: any) => {
+            logger.info('-------------', { req, res })
             const out = await callHnMsFlow(req.params.flowId)
             res.send(JSON.stringify(out))
-            logger.error('handled request', { req, res })
+            logger.info('handled request', { req, res })
         })        
 
         this.express.use('/', router)

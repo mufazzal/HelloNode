@@ -16,34 +16,40 @@ async function callHnMsFlow1() {
 
     const out: any = {'flow': 'hn-ms-1 | hn-ms-2 | hn-ms-3'}
 logger.info(out)    
+logger.info('uuuuu')    
+logger.info(hn_ms_1)    
     out.hn_ms1 = await fetch(hn_ms_1)
     .then(res=> {
+        logger.info('11111111111')
         logger.info(res.toString())
         return res.json()
     }).then(res => {
+        logger.info('2222222222')
         logger.info(res.toString())
         return {success: true, res}
     }).catch(e => {
+        logger.info('3333333333')
         logger.info(e.toString())
         return {success: false, e}
     })
-logger.info(out)    
+    logger.info('444444444444')
+    logger.info(out)    
     
-    out.hn_ms2 = await fetch(hn_ms_2)
-    .then(res=> res.json())
-    .then(res => {
-        return {success: true, res}
-    }).catch(e => {
-        return {success: false, e}
-    })  
+    // out.hn_ms2 = await fetch(hn_ms_2)
+    // .then(res=> res.json())
+    // .then(res => {
+    //     return {success: true, res}
+    // }).catch(e => {
+    //     return {success: false, e}
+    // })  
     
-    out.hn_ms3 = await fetch(hn_ms_3)
-    .then(res=> res.json())
-    .then(res => {
-        return {success: true, res}
-    }).catch(e => {
-        return {success: false, e}
-    })      
+    // out.hn_ms3 = await fetch(hn_ms_3)
+    // .then(res=> res.json())
+    // .then(res => {
+    //     return {success: true, res}
+    // }).catch(e => {
+    //     return {success: false, e}
+    // })      
     
     return out
 }
