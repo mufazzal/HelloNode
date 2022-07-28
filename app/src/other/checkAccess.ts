@@ -1,5 +1,4 @@
 import axios from 'axios'
-import logger from '../../logger'
 
 //https://www.hn.com/checkAccess/http/another-app-cluster-ip.another-app.svc
 //https://www.hn.com/checkAccess/http/hn-ms1-cluster-ip.hn-ms1.svc
