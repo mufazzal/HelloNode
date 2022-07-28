@@ -79,9 +79,9 @@ class App {
             logger.error('handled request', { req, res })
         })
         
-        router.get('/flow/:flowId', (req: any,res: any) => {
-            const out = callHnMsFlow(req.params.flowId)
-            res.send(out)
+        router.get('/flow/:flowId', async (req: any,res: any) => {
+            const out = await callHnMsFlow(req.params.flowId)
+            res.send(JSON.stringify(out))
             logger.error('handled request', { req, res })
         })        
 

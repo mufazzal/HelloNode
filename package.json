@@ -42,7 +42,7 @@
     "express": "^4.17.1",
     "forever": "^4.0.1",
     "is-docker": "^3.0.0",
-    "node-fetch": "^3.2.5",
+    "node-fetch": "^2.6.7",
     "winston": "^3.8.1"
   },
   "devDependencies": {

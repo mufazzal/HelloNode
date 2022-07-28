@@ -5,6 +5,7 @@
     "appEnv3": "valEnv3",
     "hn_ms_1": "http://api.hn.com/hn-ms1",
     "hn_ms_2": "http://api.hn.com/hn-ms2",
-    "hn_ms_3": "http://api.hn.com/hn-ms3"
+    "hn_ms_3": "http://api.hn.com/hn-ms3",
+    "NODE_TLS_REJECT_UNAUTHORIZED": "0"
     
 }

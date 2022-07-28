@@ -1,3 +1,5 @@
+import fetch from "node-fetch"
+
 const hn_ms_1 = process.env.hn_ms_1
 const hn_ms_2 = process.env.hn_ms_2
 const hn_ms_3 = process.env.hn_ms_3
@@ -9,31 +11,34 @@ function callHnMsFlow(flowId: any) {
         return {success: false, msg: "provide flow id"}
 }
 
-function callHnMsFlow1() {
+async function callHnMsFlow1() {
 
-    const out: any = {"flow": "hn-ms-1 | hn-ms-2 | hn-ms-3"};
-    fetch(hn_ms_1)
+    const out: any = {"flow": "hn-ms-1 | hn-ms-2 | hn-ms-3"}
+    out.hn_ms1 = await fetch(hn_ms_1)
+    .then(res=> res.json())
     .then(res => {
-        out.hn_ms1 = {success: true, res}
+        return {success: true, res}
     }).catch(e => {
-        out.hn_ms1 = {success: false, e}
+        return {success: false, e}
     })
     
-    fetch(hn_ms_2)
+    out.hn_ms2 = await fetch(hn_ms_2)
+    .then(res=> res.json())
     .then(res => {
-        out.hn_ms2 = {success: true, res}
+        return {success: true, res}
     }).catch(e => {
-        out.hn_ms2 = {success: false, e}
+        return {success: false, e}
     })  
     
-    fetch(hn_ms_3)
+    out.hn_ms3 = await fetch(hn_ms_3)
+    .then(res=> res.json())
     .then(res => {
-        out.hn_ms3 = {success: true, res}
+        return {success: true, res}
     }).catch(e => {
-        out.hn_ms3 = {success: false, e}
+        return {success: false, e}
     })      
     
-    return out;
+    return out
 }
 
 
