@@ -1,0 +1,23 @@
+{
+    "exec": "ts-node app/server.ts",
+    "watch": [
+      "app/**/*"
+    ],
+    "ignore": [
+      "**/__tests__/**",
+      "*.test.js",
+      "*.spec.js",
+      "*.yaml",
+      "*.json"
+    ],
+    "env": {
+      "logDir": "logs/log.json",
+      "appEnv1": "valEnv1",
+      "appEnv2": "valEnv2",
+      "appEnv3": "valEnv3",
+      "hn_ms_1": "http://api.hn.com/hn-ms1",
+      "hn_ms_2": "http://api.hn.com/hn-ms2",
+      "hn_ms_3": "http://api.hn.com/hn-ms3",
+      "NODE_TLS_REJECT_UNAUTHORIZED": "0"
+    }
+  }
