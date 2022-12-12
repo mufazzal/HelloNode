@@ -14,7 +14,7 @@ import jwks from 'jwks-rsa'
 import jwtScope from 'express-jwt-scope'
 import cors from 'cors'
 import unless from 'express-unless'
-
+import { initWSServer } from './other/websocketDemo'
 
 class App {
     public express: any;
@@ -49,15 +49,20 @@ class App {
       //---------------
 
       const corsOptions = {
-        origin: ['http://localhost:3100', 'https://localhost:3100'],
+        origin: ['http://localhost:3100', 'https://localhost:3100', 'ws://localhost:3100'],
         methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH'],
         optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
       }      
       this.express.use(cors(corsOptions))
 
-
       this.mountRoutes()
+      this.initWS(this.express)
     }
+
+    private initWS(server): void {
+        initWSServer(server)        
+    }
+
 
     private mountRoutes(): void {
         const router = express.Router()
@@ -163,5 +168,6 @@ class App {
         this.express.use('/', router)
     }
 }
+
 
 export default new App().express
